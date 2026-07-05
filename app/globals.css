@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Única regla permitida fuera de @layer (ver AGENTS.md §CSS): el preflight de
+   Tailwind ya resetea márgenes/paddings — no duplicar resets aquí. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
