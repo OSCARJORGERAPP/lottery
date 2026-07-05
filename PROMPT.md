@@ -103,7 +103,7 @@ Manifiesto — fuente de verdad del estado del proyecto (estado real a fecha de 
 | Seed de datos | Datos de ejemplo para dev/test/demo (RF-11) | ✅ |
 | `.env.example` | Plantilla de variables de entorno (Mongo, Stripe, email) | ✅ |
 | Lockfile | Dependencias bloqueadas, commiteado | ✅ |
-| Pipeline CI (`.gitlab-ci.yml` + Dockerfile standalone) | Build en el runner de la academia | 🟡 escrito (config probada en ecommerce); verde pendiente del primer push |
+| Pipeline CI (`.gitlab-ci.yml` + Dockerfile standalone) | Build en el runner de la academia | ✅ verde a la primera (2026-07-05) |
 | Diagrama de arquitectura | En README (Mermaid): componentes y flujos | ✅ |
 | Sección de métricas | Latencias, BD, tamaños, concurrencia (§5/§8) | ⬜ |
 | Guía de deployment público | Reproducible, con secretos y rollback | ✅ (documentada; se decidió no ejecutar el deploy) |
