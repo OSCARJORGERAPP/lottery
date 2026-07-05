@@ -44,12 +44,22 @@ resolviendo con reembolso automático (ver Aprendizajes).
   Payouts) queda fuera del alcance académico.
 - El **sorteo lo dispara el admin** con un botón cuando pasa la fecha; en
   producción sería un job programado (cron) que sortea solo.
-- Faltan los **e2e de Playwright** (login → compra → sorteo en navegador) y la
-  **prueba de carga** de 100 usuarios concurrentes que fija `PROMPT.md` §5; la
-  garantía anti doble venta descansa hoy en el índice unique y la revisión del
-  flujo, no en un test de estrés automatizado.
-- Las **métricas de producción** (§8) tienen objetivos fijados pero no hay
-  valores medidos en el README.
+- El **e2e del pago completo con Stripe Checkout** (rellenar la tarjeta de test
+  en la página de Stripe) no está automatizado; los 5 e2e de Playwright cubren
+  login, IBAN, rejilla y control de acceso, y el flujo de pago quedó verificado
+  manualmente y por sus piezas (unitarios + test de concurrencia).
+
+### Deuda saldada durante el cierre (2026-07-05)
+
+- ~~e2e de Playwright~~ → **5 escenarios en verde** (`npm run test:e2e`):
+  portada, magic link, validación y guardado de IBAN, rejilla con selección de
+  número libre, y control de acceso a /admin (usuario expulsado, admin dentro).
+  De regalo destaparon un hydration mismatch real en la cuenta atrás.
+- ~~Prueba de carga y métricas sin medir~~ → medidas contra el build de
+  producción y publicadas en el README: **p95 < 220 ms con 50–100 conexiones**
+  (objetivo 300), queries por índice en **0–3 ms** (objetivo 50), y el test de
+  estrés de doble venta: **100 inserciones simultáneas del mismo número → 1
+  boleto, 99 rechazos del índice unique** (`scripts/metrics.ts`, reproducible).
 
 ## Aprendizajes
 

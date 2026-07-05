@@ -99,13 +99,13 @@ Manifiesto — fuente de verdad del estado del proyecto (estado real a fecha de 
 | `QUICKSTART.md` | De cero a corriendo en < 5 min | ✅ |
 | `RETROSPECTIVA.md` | Bitácora problema → causa → solución | ✅ 3 incidentes |
 | `REFLEXION-FINAL.md` | Cierre: logros, decisiones, deuda técnica, aprendizajes | ✅ |
-| Tests automatizados | ≥1 por RF; unitarios + integración + e2e clave | 🟡 19 unit en verde; e2e Playwright pendiente |
+| Tests automatizados | ≥1 por RF; unitarios + integración + e2e clave | ✅ 19 unit + 5 e2e Playwright en verde |
 | Seed de datos | Datos de ejemplo para dev/test/demo (RF-11) | ✅ |
 | `.env.example` | Plantilla de variables de entorno (Mongo, Stripe, email) | ✅ |
 | Lockfile | Dependencias bloqueadas, commiteado | ✅ |
 | Pipeline CI (`.gitlab-ci.yml` + Dockerfile standalone) | Build en el runner de la academia | ✅ verde a la primera (2026-07-05) |
 | Diagrama de arquitectura | En README (Mermaid): componentes y flujos | ✅ |
-| Sección de métricas | Latencias, BD, tamaños, concurrencia (§5/§8) | ⬜ |
+| Sección de métricas | Latencias, BD, tamaños, concurrencia (§5/§8) | ✅ medidas 2026-07-05, todas dentro de objetivo |
 | Guía de deployment público | Reproducible, con secretos y rollback | ✅ (documentada; se decidió no ejecutar el deploy) |
 
 ## 8. Métricas y observabilidad

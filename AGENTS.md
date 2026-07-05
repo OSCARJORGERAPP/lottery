@@ -133,11 +133,12 @@ un reset global `* { margin: 0; padding: 0; }` **anula** `mx-auto` y rompe el ce
 ## 📊 Métricas (cómo recolectarlas)
 
 - Latencias: `npx autocannon -c 50 -d 10 http://localhost:3000/api/lotteries`
-  (repetir para compra con sesión). Objetivos en `PROMPT.md` §5.
-- MongoDB: `db.tickets.find(...).explain("executionStats")` en `mongosh` para
-  verificar índices y tiempos.
-- Concurrencia/doble venta: `npm run test:e2e` incluye el test de estrés de compra.
-- Registrar resultados en el README (sección métricas) antes de la entrega.
+  contra el **build de producción** (`npm run build && npm start`), nunca el
+  dev server. Objetivos en `PROMPT.md` §5.
+- BD, concurrencia y tamaños: `npx tsx scripts/metrics.ts` — explain de las
+  queries clave, test de estrés de doble venta (100 inserciones simultáneas
+  del mismo número) y bytes por documento/colección.
+- Resultados medidos: README §Métricas (2026-07-05, todo dentro de objetivo).
 
 ## 🌐 Deployment público
 

@@ -24,7 +24,10 @@ export default function Countdown({ closeAtIso }: { closeAtIso: string }) {
   }, []);
   const msLeft = closeAt - now;
   return (
+    // Contenido de reloj: el segundo renderizado en servidor difiere del
+    // cliente por naturaleza — mismatch esperado y suprimido
     <span
+      suppressHydrationWarning
       className={`font-[family-name:var(--font-geist-mono)] tabular-nums ${
         msLeft <= 0 ? "text-rose-400" : msLeft < 3600_000 ? "text-amber-300" : "text-zinc-300"
       }`}

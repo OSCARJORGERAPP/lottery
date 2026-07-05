@@ -120,22 +120,30 @@ sequenceDiagram
 
 ```bash
 npm test          # 19 tests unitarios: ventana de compra, IBAN mod-97, bote, validaciones
+npm run test:e2e  # 5 e2e Playwright: portada, magic link, IBAN, rejilla, control de acceso
 npm run test:cov  # cobertura
 ```
 
-Política: cada RF tiene ≥1 test (ver PROMPT.md §4). E2E con Playwright: pendiente.
+Política: cada RF tiene ≥1 test (ver PROMPT.md §4). Los e2e usan el dev server
+(lo arrancan solos) y requieren MongoDB local con seed.
 
 ## Métricas
 
-Objetivos en PROMPT.md §5 (API p95 < 300 ms, Mongo p95 < 50 ms, ≥100 usuarios
-concurrentes, 0 doble venta). Cómo medir: AGENTS.md §Métricas
-(`npx autocannon`, `explain("executionStats")`).
+Objetivos en PROMPT.md §5. Medidas el 2026-07-05 contra el **build de
+producción** (`npm run build && npm start`) en local, con
+`npx autocannon -c 50 -d 10` y `npx tsx scripts/metrics.ts` (explain de
+índices, test de concurrencia y tamaños). Reproducibles con esos dos comandos.
 
-| Métrica | Objetivo | Medido |
-|---|---|---|
-| Latencia p95 `GET /api/lotteries` | < 300 ms | <!-- TODO --> |
-| Query tickets por lotería (índice) | < 50 ms | <!-- TODO --> |
-| Concurrencia sin doble venta | 100 usuarios | <!-- TODO --> |
+| Métrica | Objetivo | Medido | |
+|---|---|---|---|
+| Latencia `GET /api/lotteries` (50 conex.) | p95 < 300 ms | p50 85 ms · p97.5 177 ms · p99 220 ms | ✅ |
+| Latencia `GET /api/lotteries/[id]` (50 conex.) | p95 < 300 ms | p50 64 ms · p97.5 85 ms | ✅ |
+| Concurrencia (100 conexiones) | sin degradación crítica | p99 212 ms · 690 req/s · 0 errores | ✅ |
+| Throughput | — | 542–749 req/s según endpoint | ✅ |
+| Query tickets por lotería | < 50 ms, por índice | 3 ms · índice `lotteryId_1_number_1` · 0 docs de más examinados | ✅ |
+| Query loterías abiertas ordenadas | < 50 ms, por índice | 0 ms · índice `status_1_endDate_1` | ✅ |
+| Doble venta bajo concurrencia | 0 (100 compras simultáneas del mismo número) | 1 insertado / 99 rechazados por el índice unique (47 ms) | ✅ |
+| Tamaño por boleto | < 1 KB | 154 B/doc (lotería 208 B, usuario 101 B) | ✅ |
 
 ## Deployment
 
